@@ -124,5 +124,5 @@ ENV/
 
 # Azure key
 apikey.json
-image.txt
+path.txt
 

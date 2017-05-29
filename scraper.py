@@ -6,11 +6,10 @@ html = urlopen(url)
 soup = BeautifulSoup(html, "html.parser")
 
 items = soup.find_all(class_='rbcomp__item-list__item__image')
-f = open('images.txt', 'w')
+f = open('images/path.txt', 'w')
 for item in items:
     img = item.find('img')['src']
     if img.find('noimage') == -1:
         f.write("https:" + img + "\n")
-
 f.close
 
