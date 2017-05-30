@@ -18,19 +18,17 @@ params = urllib.parse.urlencode({
 
 try:
     conn = http.client.HTTPSConnection('westcentralus.api.cognitive.microsoft.com')
-    f = open('response/result.txt', 'a')
-    img_f = open('images/path.txt', 'r')
-    lines = img_f.readlines()
-    for image_path in lines:
-        body = "{'url':'" + image_path + "'}"
-        conn.request("POST", "/vision/v1.0/analyze?%s" % params, body, headers)
-        response = conn.getresponse()
-        data = response.read()
-        if response.status == 200:
-            f.write(str(data, 'utf-8') + '\n')
+    with open('response/result.txt', 'a') as f:
+        with open('images/path.txt', 'r') as img_f:
+            lines = img_f.readlines()
+            for image_path in lines:
+                body = "{'url':'" + image_path + "'}"
+                conn.request("POST", "/vision/v1.0/analyze?%s" % params, body, headers)
+                response = conn.getresponse()
+                data = response.read()
+                if response.status == 200:
+                    f.write(str(data, 'utf-8') + '\n')
     conn.close()
-    img_f.close()
-    f.close()
 except Exception as e:
     print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
